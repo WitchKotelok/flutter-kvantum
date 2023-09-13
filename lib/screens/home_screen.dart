@@ -74,11 +74,11 @@ class HomeScreen extends StatefulWidget {
                           : 'All dates'),
                       ElevatedButton(
                         onPressed: () => _selectDate(context),
-                        child: const Text('Выбрать дату'),
+                        child: const Text('Выбрать\nдату', textAlign: TextAlign.center,),
                       ),
                       ElevatedButton(
                         onPressed: selectedDate != null ? _clearFilter : null,
-                        child: const Text('Обновить фильтр'),
+                        child: const Text('Обновить\nфильтр', textAlign: TextAlign.center,),
                       ),
                     ],
                   ),
@@ -94,7 +94,9 @@ class HomeScreen extends StatefulWidget {
                           child: ListTile(
                             title: Text(data.title),
                             subtitle:
-                                Text(DateFormat('yyyy-MM-dd').format(data.date)),
+                                Text(DateFormat('yyyy-MM-dd').format(data.date),),
+                                // trailing: IconButton(onPressed: () { Provider.of<MyDataProvider>(context, listen: true).},
+                                // icon: Icon(Icons.delete)),
                           ),
                         ),
                       );
