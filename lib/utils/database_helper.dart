@@ -63,4 +63,9 @@ class DatabaseHelper {
         return MyData.fromMap(maps[i]);
       });
     }
+
+    Future<int> deleteData(int id) async {
+      final db = await instance.db;
+      return await db.delete(instance.table, where: 'id LIKE ?', whereArgs: [id]);
+    }
   }

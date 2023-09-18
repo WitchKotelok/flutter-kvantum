@@ -95,8 +95,8 @@ class HomeScreen extends StatefulWidget {
                             title: Text(data.title),
                             subtitle:
                                 Text(DateFormat('yyyy-MM-dd').format(data.date),),
-                                // trailing: IconButton(onPressed: () { Provider.of<MyDataProvider>(context, listen: true).},
-                                // icon: Icon(Icons.delete)),
+                                trailing: IconButton(onPressed: () { Provider.of<MyDataProvider>(context, listen: false).deleteData(data.id);},
+                                icon: Icon(Icons.delete)),
                           ),
                         ),
                       );
