@@ -10,7 +10,7 @@ class DataDetailsScreen extends StatelessWidget {
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Подробно о товаре'),
+          title: Text('Подробно о товаре'),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

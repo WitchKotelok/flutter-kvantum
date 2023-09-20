@@ -3,6 +3,7 @@ import 'package:flutter_application_1/models/my_data.dart';
 import 'package:flutter_application_1/providers/my_data_provider.dart';
 import 'package:flutter_application_1/screens/add_data_form.dart';
 import 'package:flutter_application_1/screens/data_details_screen.dart';
+import 'package:flutter_application_1/screens/edit_data_form.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -95,6 +96,10 @@ class HomeScreen extends StatefulWidget {
                             title: Text(data.title),
                             subtitle:
                                 Text(DateFormat('yyyy-MM-dd').format(data.date),),
+                                leading: IconButton(
+                                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>EditDataForm(data: data))),
+                                  icon: Icon(Icons.edit),
+                                ),
                                 trailing: IconButton(onPressed: () { Provider.of<MyDataProvider>(context, listen: false).deleteData(data.id);},
                                 icon: Icon(Icons.delete)),
                           ),
