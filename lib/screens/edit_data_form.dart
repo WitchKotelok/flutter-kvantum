@@ -54,7 +54,7 @@ class EditDataForm extends StatefulWidget {
           imageUrl: image,
           date: date,
         );
-        Provider.of<MyDataProvider>(context, listen: false).addData(data);
+        // Provider.of<MyDataProvider>(context, listen: false).editData(data.id, data);
         Navigator.pop(context);
       }
     }
@@ -74,13 +74,13 @@ class EditDataForm extends StatefulWidget {
               children: [
                 TextFormField(
                   controller: _textController,
-                  decoration: const InputDecoration(
-                    labelText: 'Название',
+                  decoration: InputDecoration(
+                    labelText: widget.data.title,
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Напишите название';
+                      _textController.text = widget.data.title;
                     }
                     return null;
                   },
@@ -88,13 +88,13 @@ class EditDataForm extends StatefulWidget {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   controller: _imageController,
-                  decoration: const InputDecoration(
-                    labelText: 'URL Изображения',
+                  decoration: InputDecoration(
+                    labelText: widget.data.imageUrl,
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Вставьте URL изображения';
+                      _imageController.text=widget.data.imageUrl;
                     }
                     return null;
                   },
@@ -102,15 +102,15 @@ class EditDataForm extends StatefulWidget {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   controller: _dateController,
-                  decoration: const InputDecoration(
-                    labelText: 'Дата',
+                  decoration: InputDecoration(
+                    labelText: widget.data.date.toString(),
                     border: OutlineInputBorder(),
                   ),
                   onTap: () => _selectDate(context),
                   readOnly: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Выберете дату';
+                      _selectedDate=widget.data.date;
                     }
                     return null;
                   },

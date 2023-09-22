@@ -26,4 +26,8 @@ class MyDataProvider extends ChangeNotifier {
       await DatabaseHelper.instance.deleteData(id);
       getData();
     }
+
+    // void editData(int id,  Map<String, dynamic> newData) async {
+    //   await DatabaseHelper.instance.editData(int id, Map<String, dynamic> newData);
+    // }
   }

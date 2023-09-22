@@ -68,4 +68,9 @@ class DatabaseHelper {
       final db = await instance.db;
       return await db.delete(instance.table, where: 'id LIKE ?', whereArgs: [id]);
     }
+
+    Future<void> editData(int id, Map<String, dynamic> newData) async {
+    final db = await instance.db;
+    await db.update(instance.table, newData, where: 'id LIKE ?', whereArgs: [id]);
+  }
   }
