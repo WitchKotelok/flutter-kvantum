@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/my_data.dart';
 import 'package:flutter_application_1/utils/database_helper.dart';
@@ -27,7 +29,8 @@ class MyDataProvider extends ChangeNotifier {
       getData();
     }
 
-    // void editData(int id,  Map<String, dynamic> newData) async {
-    //   await DatabaseHelper.instance.editData(int id, Map<String, dynamic> newData);
-    // }
+    void editData(int id,  Map<String, dynamic> newData) async {
+      await DatabaseHelper.instance.editData(id, newData);
+      getData();
+    }
   }

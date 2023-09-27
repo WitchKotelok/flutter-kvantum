@@ -49,12 +49,12 @@ class EditDataForm extends StatefulWidget {
         final text = _textController.text.trim();
         final image = _imageController.text.trim();
         final date = _selectedDate;
-        final data = MyData(
+        final dataNew = MyData(
           title: text,
           imageUrl: image,
           date: date,
-        );
-        // Provider.of<MyDataProvider>(context, listen: false).editData(data.id, data);
+        ).toMap();
+        // Provider.of<MyDataProvider>(context, listen: false).editData(, dataNew); //! найди в чём ошибка 
         Navigator.pop(context);
       }
     }

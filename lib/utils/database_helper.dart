@@ -71,6 +71,11 @@ class DatabaseHelper {
 
     Future<void> editData(int id, Map<String, dynamic> newData) async {
     final db = await instance.db;
-    await db.update(instance.table, newData, where: 'id LIKE ?', whereArgs: [id]);
+    try {
+      await db.update(instance.table, newData, where: 'id LIKE ?', whereArgs: [id]);
+      
+    } catch (e) {
+      print('Ошибка + ${e}');
+    }
   }
   }
