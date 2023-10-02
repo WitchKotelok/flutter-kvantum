@@ -8,6 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+
+
 class HomeScreen extends StatefulWidget {
     const HomeScreen({super.key});
   
@@ -52,7 +54,7 @@ class HomeScreen extends StatefulWidget {
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Работа с SQLite'),
+          title: const Text('Календарь'),
         ),
         body: Consumer<MyDataProvider>(
           builder: (context, provider, child) {
@@ -68,21 +70,25 @@ class HomeScreen extends StatefulWidget {
               children: [
                 Container(
                   padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(selectedDate != null
-                          ? DateFormat('yyyy-MM-dd').format(selectedDate!)
-                          : 'All dates'),
-                      ElevatedButton(
-                        onPressed: () => _selectDate(context),
-                        child: const Text('Выбрать\nдату', textAlign: TextAlign.center,),
-                      ),
-                      ElevatedButton(
-                        onPressed: selectedDate != null ? _clearFilter : null,
-                        child: const Text('Обновить\nфильтр', textAlign: TextAlign.center,),
-                      ),
-                    ],
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        Text(selectedDate != null
+                            ? DateFormat('yyyy-MM-dd').format(selectedDate!)
+                            : 'Все'),
+                        SizedBox(width: 20),
+                        ElevatedButton(
+                          onPressed: () => _selectDate(context),
+                          child: const Text('Выбрать дату', textAlign: TextAlign.center,),
+                        ),
+                        SizedBox(width: 20),
+                        ElevatedButton(
+                          onPressed: selectedDate != null ? _clearFilter : null,
+                          child: const Text('Обновить фильтр', textAlign: TextAlign.center,),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
