@@ -6,6 +6,7 @@ import 'package:flutter_application_1/screens/data_details_screen.dart';
 import 'package:flutter_application_1/screens/edit_data_form.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class HomeScreen extends StatefulWidget {
     const HomeScreen({super.key});
@@ -84,6 +85,17 @@ class HomeScreen extends StatefulWidget {
                     ],
                   ),
                 ),
+
+
+                //
+                TableCalendar(
+                  firstDay: DateTime.utc(1900, 1, 1),
+                  lastDay: DateTime.utc(2100, 12, 31),
+                  focusedDay: DateTime.now(),
+                  ),
+                //
+
+
                 Expanded(
                   child: ListView.builder(
                     itemCount: filteredDataList.length,
@@ -121,4 +133,5 @@ class HomeScreen extends StatefulWidget {
         ),
       );
     }
+    
   }
