@@ -56,7 +56,7 @@ class EditDataForm extends StatefulWidget {
           id: widget.data.id
         ).toMap();
         // print("АЙДИ ПРОДУКТА" + widget.data.id.toString());
-        Provider.of<MyDataProvider>(context, listen: false).editData(1, dataNew);
+        Provider.of<MyDataProvider>(context, listen: false).editData(widget.data.id ?? 0, dataNew);
         Navigator.pop(context);
       }
     }
