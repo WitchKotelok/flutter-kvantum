@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/providers/my_data_provider.dart';
 import 'package:flutter_application_1/screens/home_screen.dart';
 import 'package:provider/provider.dart';
-  
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+
   void main() {
     runApp(const MyApp());
   }
@@ -15,6 +17,15 @@ import 'package:provider/provider.dart';
       return ChangeNotifierProvider(
         create: (context) => MyDataProvider()..getData(),
         child: MaterialApp(
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale('ru', ''),
+            ],
+          
           title: 'My App',
           theme: ThemeData(
        // ! Теперь можно использовать новые компоненты из Material 3
