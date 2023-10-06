@@ -56,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Календарь'),
+        backgroundColor: Colors.green,
       ),
       body: Consumer<MyDataProvider>(
         builder: (context, provider, child) {
@@ -92,13 +93,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
                   }
                 },
-                calendarStyle: CalendarStyle(
+                calendarStyle: const CalendarStyle(
                   todayDecoration: BoxDecoration(
-                    color: Colors.amber,
-                    shape: BoxShape.circle
-                  )
+                    color: Colors.green,
+                    shape: BoxShape.circle,
+                  ),
+                  selectedDecoration: BoxDecoration(
+                    color: Colors.lightGreen,
+                    shape: BoxShape.circle,
+                  ),
                 ),
-                
+                calendarBuilders: CalendarBuilders(
+                  markerBuilder: (context, day, events) {
+                    return _marker(day);
+                  },
+                ),
               ),
               //!
               Container(
@@ -166,5 +175,27 @@ class _HomeScreenState extends State<HomeScreen> {
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  Widget _marker(DateTime date/*, List<MyData> products*/) {
+
+    // List<Widget> markers = [];
+    // final myProducts = Provider.of<MyDataProvider>(context);
+    // Map<DateTime, List<MyData>> _products = {};
+    //   (element) {
+    //     markers.add(Padding(
+    //       padding: EdgeInsets.only(bottom: 2.0),
+    //       child: Container(
+    //         width: 3,
+    //         height: 3,
+    //         decoration: BoxDecoration(
+    //           color: Colors.blue,
+    //           shape: BoxShape.circle
+    //         ),
+    //       ),
+    //     ));
+    //   };
+
+    return Row(children:/*markers*/[]);
   }
 }

@@ -66,6 +66,7 @@ class EditDataForm extends StatefulWidget {
       return Scaffold(
         appBar: AppBar(
           title: const Text('Редактировать товар'),
+          backgroundColor: Colors.green,
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
