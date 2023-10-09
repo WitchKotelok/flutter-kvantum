@@ -103,11 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     shape: BoxShape.circle,
                   ),
                 ),
-                calendarBuilders: CalendarBuilders(
-                  markerBuilder: (context, day, events) {
-                    return _marker(day);
-                  },
-                ),
+                eventLoader:
               ),
               //!
               Container(
@@ -148,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         EditDataForm(data: data))),
-                            icon: Icon(Icons.edit),
+                            icon: const Icon(Icons.edit),
                           ),
                           trailing: IconButton(
                               onPressed: () {
@@ -156,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         listen: false)
                                     .deleteData(data.id);
                               },
-                              icon: Icon(Icons.delete)),
+                              icon: const Icon(Icons.delete)),
                         ),
                       ),
                     );
@@ -175,27 +171,5 @@ class _HomeScreenState extends State<HomeScreen> {
         child: const Icon(Icons.add),
       ),
     );
-  }
-
-  Widget _marker(DateTime date/*, List<MyData> products*/) {
-
-    // List<Widget> markers = [];
-    // final myProducts = Provider.of<MyDataProvider>(context);
-    // Map<DateTime, List<MyData>> _products = {};
-    //   (element) {
-    //     markers.add(Padding(
-    //       padding: EdgeInsets.only(bottom: 2.0),
-    //       child: Container(
-    //         width: 3,
-    //         height: 3,
-    //         decoration: BoxDecoration(
-    //           color: Colors.blue,
-    //           shape: BoxShape.circle
-    //         ),
-    //       ),
-    //     ));
-    //   };
-
-    return Row(children:/*markers*/[]);
   }
 }
