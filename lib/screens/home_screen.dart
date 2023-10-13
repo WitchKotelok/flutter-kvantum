@@ -1,9 +1,12 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/my_data.dart';
 import 'package:flutter_application_1/providers/my_data_provider.dart';
 import 'package:flutter_application_1/screens/add_data_form.dart';
 import 'package:flutter_application_1/screens/data_details_screen.dart';
 import 'package:flutter_application_1/screens/edit_data_form.dart';
+import 'package:flutter_application_1/utils/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -35,6 +38,11 @@ class _HomeScreenState extends State<HomeScreen> {
       Provider.of<MyDataProvider>(context, listen: false)
           .getData(_selectedDate);
     }
+  }
+
+  List<Event> _getEventsForDay(DateTime day) {
+    // Implementation example
+    return kEvents[day] ?? [];
   }
 
   void _clearFilter() {
@@ -103,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     shape: BoxShape.circle,
                   ),
                 ),
-                eventLoader:
+                eventLoader: _getEventsForDay,
               ),
               //!
               Container(
