@@ -62,8 +62,9 @@ class AddDataForm extends StatefulWidget {
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Добавить товар'),
+          title: const Text('Добавить товар', style: TextStyle(color: Colors.white),),
           backgroundColor: Colors.green,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

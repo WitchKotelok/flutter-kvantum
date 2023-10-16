@@ -10,8 +10,9 @@ class DataDetailsScreen extends StatelessWidget {
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Подробно о товаре'),
+          title: Text('Подробно о товаре', style: TextStyle(color: Colors.white),),
           backgroundColor: Colors.green,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

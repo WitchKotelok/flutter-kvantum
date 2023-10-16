@@ -1,4 +1,4 @@
-
+import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/my_data.dart';
@@ -6,7 +6,7 @@ import 'package:flutter_application_1/providers/my_data_provider.dart';
 import 'package:flutter_application_1/screens/add_data_form.dart';
 import 'package:flutter_application_1/screens/data_details_screen.dart';
 import 'package:flutter_application_1/screens/edit_data_form.dart';
-import 'package:flutter_application_1/utils/utils.dart';
+// import 'package:flutter_application_1/utils/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -23,6 +23,14 @@ class _HomeScreenState extends State<HomeScreen> {
   DateTime _focusedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.month;
 
+  late LinkedHashMap<DateTime, List<dynamic>> kEvents;
+
+  @override
+  void initState() {
+    context.read<MyDataProvider>().loadProducts();
+    super.initState();
+  }
+
   // Реализация фильтра по данным
   void _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -35,13 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _selectedDate = picked;
       });
-      Provider.of<MyDataProvider>(context, listen: false)
-          .getData(_selectedDate);
+      context.read<MyDataProvider>().getData(_selectedDate);
     }
   }
 
-  List<Event> _getEventsForDay(DateTime day) {
-    // Implementation example
+  List<dynamic> _getEventsForDay(DateTime day) {
     return kEvents[day] ?? [];
   }
 
@@ -49,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _selectedDate = null;
     });
-    Provider.of<MyDataProvider>(context, listen: false).getData();
+    context.read<MyDataProvider>().getData();
   }
 
   void _viewDataDetails(BuildContext context, MyData data) {
@@ -59,11 +65,25 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  int getHashCode(DateTime k) => k.day * 1000000 + k.month * 10000 + k.year;
+
   @override
   Widget build(BuildContext context) {
+    kEvents = LinkedHashMap<DateTime, List<dynamic>>(
+      equals: isSameDay,
+      hashCode: getHashCode,
+    );
+
+    kEvents.addAll(context.watch<MyDataProvider>().events);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Календарь'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text('Календарь', style: TextStyle(color: Colors.white),),
+          ],
+        ),
         backgroundColor: Colors.green,
       ),
       body: Consumer<MyDataProvider>(
@@ -107,9 +127,37 @@ class _HomeScreenState extends State<HomeScreen> {
                     shape: BoxShape.circle,
                   ),
                   selectedDecoration: BoxDecoration(
-                    color: Colors.lightGreen,
+                    color: Colors.amber,
                     shape: BoxShape.circle,
                   ),
+                ),
+                calendarBuilders: CalendarBuilders(
+                  markerBuilder: (context, date, events) {
+                    if (events.isNotEmpty) {
+                      if (date.isBefore(DateTime.now())) {
+                        // Если дата меньше текущей, используйте красный маркер
+                        return Container(
+                          width: 6,
+                          height: 6,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.orange,
+                          ),
+                        );
+                      } else {
+                        // Иначе используйте зеленый маркер
+                        return Container(
+                          width: 6,
+                          height: 6,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color.fromARGB(255, 16, 109, 19),
+                          ),
+                        );
+                      }
+                    }
+                    return Container();
+                  },
                 ),
                 eventLoader: _getEventsForDay,
               ),
@@ -122,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(_selectedDate != null
                         ? DateFormat('yyyy-MM-dd').format(_selectedDate!)
                         : 'Все'),
-                    SizedBox(width: 20),
+                    const SizedBox(width: 20),
                     ElevatedButton(
                       onPressed: _selectedDate != null ? _clearFilter : null,
                       child: const Text(
@@ -148,19 +196,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           leading: IconButton(
                             onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        EditDataForm(data: data))),
-                            icon: const Icon(Icons.edit),
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditDataForm(data: data),
+                              ),
+                            ),
+                            icon: const Icon(Icons.edit_note, color: Colors.orange,),
                           ),
                           trailing: IconButton(
                               onPressed: () {
-                                Provider.of<MyDataProvider>(context,
-                                        listen: false)
+                                context
+                                    .read<MyDataProvider>()
                                     .deleteData(data.id);
                               },
-                              icon: const Icon(Icons.delete)),
+                              icon: const Icon(Icons.delete_outline, color: Colors.orange,)),
                         ),
                       ),
                     );
