@@ -25,7 +25,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
             supportedLocales: [
               const Locale('ru', ''),
             ],
-          
           title: 'My App',
           theme: ThemeData(
        // ! Теперь можно использовать новые компоненты из Material 3
